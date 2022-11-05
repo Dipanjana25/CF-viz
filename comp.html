@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>codeforces visualizer</title>
+    <link rel="icon" href="icon1.jpg" type="image/x-icon" sizes="16x16">
+    <link rel="stylesheet" href="main.css" type="text/css">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <nav>
+        <div class="navbar">
+            <i class="bx bx-menu"></i>
+            <div class="logo">Codeforces Visualizer</div>
+            <div class="navlinks">
+                <div class="respo">
+                    <span class="name">CFV</span>
+                    <i class="bx bx-x"></i>
+                </div>
+                <ul class="links">
+                    <li><i class='bx bxs-home-heart'></i><a href="index.html" style="text-decoration:none; color:var(--text-color);">Home</a></li>
+                    <li><i class='bx bx-git-compare'></i><a href="comp.html" style="text-decoration:none; color:var(--text-color);">Compare</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="type">
+        <h1>
+            <a class="typewrite" data-period="2000" data-type='[ "Welcome to Codeforces Visualizer . . . .", "Compare any two valid user handles . . .","Analyze ! !"]'>
+            <span class="wrap"></span>
+            </a>
+        </h1>
+    </div>
+    <div class="com">
+        <div class="search-box1">
+            <input type="text" id="data" size="30" placeholder="Search . . ."><br>
+        </div>
+        <div class="search-box2">
+            <input type="text" id="data" size="30" placeholder="Search . . ."><br>
+        </div>
+        <button id="compa" onclick="compareinfo()">Compare</button>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
