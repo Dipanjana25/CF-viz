@@ -67,3 +67,19 @@ menuOpenBtn.addEventListener("click",()=>{
 closeOpenBtn.addEventListener("click",()=>{
     navLinks.style.left="-100%";
 });
+var tog=document.getElementById("theme-toggle");
+var stheme= localStorage.getItem('theme')||(window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+if (stheme)
+    document.documentElement.setAttribute('data-theme', stheme)
+tog.onclick=function toggle(){
+    var ctheme = document.documentElement.getAttribute("data-theme");
+    var targetTheme = "light";
+    if (ctheme === "light") {
+        targetTheme = "dark";
+    }
+    else if (ctheme === "dark"){
+        targetTheme = "light";
+    }
+    document.documentElement.setAttribute('data-theme', targetTheme)
+    localStorage.setItem('theme', targetTheme);
+};
