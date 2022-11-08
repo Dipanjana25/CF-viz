@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 body{
     background:var(--body-color);
 }
@@ -210,6 +211,30 @@ input:focus {
     font-size: 20px;
     font-weight: 600;
 }
+.display-data-container {    
+     display:none; 
+    background-color: var(--background-color);
+    border-radius: 12px;
+    margin: 2rem;
+    border: 1px solid var(--borderdata-color);
+    padding: 12px;
+    box-shadow: 4px 3px 6px 1px rgba(69, 74, 80, 0.7);
+}
+
+.display-data p{
+    padding: 5px 10px;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    width: 400px;
+    display: flex;
+    align-items: center;
+    color:var(--text-color);
+}
+
+.display-data b {
+    margin-right: 10px;
+    color: var(--button-text);
+}
 
 :root{
     --navbg-color:#e29578;
@@ -220,6 +245,9 @@ input:focus {
     --modebutton-color:rgb(7, 7, 7);
     --border-color:black;
     --trans-color:black;
+    --background-color:beige;
+    --borderdata-color:#e29578;
+    --shadow-color:rgba(69, 74, 80, 0.7);
 }
 html[data-theme='light'] {
     --navbg-color:#e29578;
@@ -230,6 +258,9 @@ html[data-theme='light'] {
     --modebutton-color:rgb(7, 7, 7);
     --border-color:black;
     --trans-color:black;
+    --background-color:beige;
+    --borderdata-color:#e29578;
+    --shadow-color:rgba(69, 74, 80, 0.7);
 }
 html[data-theme='dark'] {
     --navbg-color:#00b4d8;
@@ -240,6 +271,9 @@ html[data-theme='dark'] {
     --modebutton-color:beige;
     --border-color:rgb(252, 252, 252);
     --trans-color:beige;
+    --background-color:black;
+    --borderdata-color:#00b4d8;
+    --shadow-color:white;
 }
 [data-theme='light'] .d-block-light{
     display:block;
@@ -261,4 +295,6 @@ html[data-theme='dark'] {
     width:40px;
     border-radius: 50%;
 }
-
+/* .warn{
+    display:flex;
+} */

@@ -67,6 +67,16 @@ menuOpenBtn.addEventListener("click",()=>{
 closeOpenBtn.addEventListener("click",()=>{
     navLinks.style.left="-100%";
 });
+
+//showdata
+let tapsearch=document.querySelector(".search-box .t");
+let databox=document.querySelector(".display-data-container");
+ 
+tapsearch.addEventListener("click",()=>{
+    databox.style.display="block";
+});
+
+//darkmode
 var tog=document.getElementById("theme-toggle");
 var stheme= localStorage.getItem('theme')||(window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
 if (stheme)
@@ -83,3 +93,179 @@ tog.onclick=function toggle(){
     document.documentElement.setAttribute('data-theme', targetTheme)
     localStorage.setItem('theme', targetTheme);
 };
+// const url="https://codeforces.com/api/user.rating?handle=asr_003";
+// fetch(url).then((response)=>{
+//     return response.json();
+// }).then((data)=>{
+//     console.log(data);
+// }
+// );
+document.getElementById("data").addEventListener("keyup", function (event) {
+    event.preventDefault();
+    let input = document.getElementById("data");
+    if (event.keyCode === 13) {
+      if (input.value == "") {
+        alert("Enter user name!!")
+      } else {
+        document.getElementById("tap").click();
+      }
+    }
+  });
+function userinfo() {
+    const showw = document.querySelector(".t");
+    let username = document.getElementById("data").value; 
+    url1= "https://codeforces.com/api/user.info?handles="+username;
+    url2="https://codeforces.com/api/user.rating?handle="+username;
+    let input = document.getElementById("data");
+    if (input.value == "") {
+      alert("Enter user name!!")
+    } else {
+      async function get_data() {
+          const resultContainer = document.getElementById('display-data-container');
+          resultContainer.classList.add('display-data-container');
+         try {
+            //showw.style.display = "block";
+          const response = await fetch(url1);
+          const response2= await fetch(url2);
+          const data = await response.json();
+          const data2 = await response2.json();  
+          console.log(data);
+          console.log(data2);
+          totcont=data2.result.length;
+          url3="https://codeforces.com/api/user.status?handle="+username;
+          const response3=await fetch(url3);
+          const data3 = await response3.json(); 
+          console.log(data3);
+          fname=data.result[0].firstName;
+          sname=data.result[0].lastName;
+          handle=data.result[0].handle;
+          maxrat=data.result[0].maxRating;
+          maxrank=data.result[0].maxRank;
+          cuurat=data.result[0].rating;
+          const triedq = new Set();
+          const solvedq = new Set();
+          var ac=0,wa=0,re=0,tle=0,f=0,p=0,ce=0,pe=0,mle=0,ile=0;
+          for(var i=0;i<data3.result.length;i++){
+            const a=data3.result[i].problem.name;
+            const b=data3.result[i].verdict;
+            triedq.add(a);
+            if(b==="OK"){
+            solvedq.add(a);
+            ac++;}
+            // else if(b==="WRONG_ANSWER")
+            // wa++;
+            // else if(b==="RUNTIME_ERROR")
+            // re++;
+            // else if(b==="TIME_LIMIT_EXCEEDED")
+            // tle++;
+            // else if(b==="FAILED")
+            // f++;
+            // else if(b==="PARTIAL")
+            // p++;
+            // else if(b==="COMPILATION_ERROR")
+            // ce++;
+            // else if(b==="PRESENTATION_ERROR")
+            // pe++;
+            // else if(b==="MEMORY_LIMIT_EXCEEDED")
+            // mle++;
+            // else if(b==="IDLENESS_LIMIT_EXCEEDED")
+            // ile++;
+          }
+          //console.log(ac);
+          if(fname===undefined || sname ===undefined){
+          usrnm = `<p> <b>Handle :</b> ${handle}</p>`;}
+          else{
+          usrnm = `<p> <b>User Name :</b> ${fname} ${sname}</p>`;}
+          maxrt = `<p> <b>Maximum Rating:</b> ${maxrat}</p>`;
+          maxrk = `<p> <b>Maximum Rank:</b> ${maxrank}</p>`;
+          curat = `<p> <b>Current Rating:</b> ${cuurat}</p>`;
+          totcontest = `<p> <b>Total No. of Contests:</b> ${totcont}</p>`;
+          trd = `<p> <b>No. of Questions Tried:</b> ${triedq.size}</p>`;
+          slvd = `<p> <b>No. of Questions Solved :</b> ${solvedq.size}</p>`;
+//           avgat = `<p> <b>Average Attempts :</b> ${aat} hPa</p>`;
+//           maxt = `<p> <b>Maximum Attempts :</b> ${maxatt}%</p>`;
+//           slv1 = `<p> <b>Questions solved with 1 submission :</b> ${justone}</p>`;
+//           maxac = `<p> <b>Maximum AC(s) </b> ${correct}</p>`;
+  
+            document.getElementById("username").innerHTML = usrnm;
+            document.getElementById("mxrt").innerHTML = maxrt;
+            document.getElementById("mxrk").innerHTML = maxrk;
+            document.getElementById("crt").innerHTML = curat;
+            document.getElementById("tc").innerHTML = totcontest;
+            document.getElementById("Tried").innerHTML = trd;
+            document.getElementById("Solved").innerHTML = slvd;
+// //           document.getElementById("Average-Attempts").innerHTML = avgat;
+// //           document.getElementById("Max-Attempts").innerHTML = maxt;
+// //           document.getElementById("Solved-with-one-submission").innerHTML = slv1;
+// //           document.getElementById("Max-AC").innerHTML = maxac;
+         }
+         catch (err) {
+                document.getElementById("username").innerHTML = `<p class="warn" style="color: red; font-weight: bolder; display:flex; justify-content: center;">Please enter a valid user handle</b></p>`;
+                document.getElementById("mxrt").innerHTML = '';
+                document.getElementById("mxrk").innerHTML = '';
+                document.getElementById("crt").innerHTML = ''; 
+                document.getElementById("tc").innerHTML = '';
+                document.getElementById("Tried").innerHTML = '';
+                document.getElementById("Solved").innerHTML = '';
+//              document.getElementById("Average-Attempts").innerHTML = '';
+//              document.getElementById("Max-Attempts").innerHTML = '';
+//              document.getElementById("Solved-with-one-submission").innerHTML = '';
+//              document.getElementById("Max-AC").innerHTML = '';
+//              document.body.style =
+//               "background-image:repeating-linear-gradient(#edebeb , #fffcfc)";
+         }
+        }
+        get_data();
+      }
+  }
+function drawCharts() {
+    //Plotting the verdicts chart
+    var verdicts={};
+    //document.getElementById("verdicts").removeClass('hidden');
+    var verTable = [['Verdict', 'Count']];
+    var verSliceColors = [];
+
+    for (var ver in verdicts) {
+      if (ver == 'OK') {
+        verTable.push(['AC', verdicts[ver]]);
+        verSliceColors.push({ color: '#4CAF50' });
+      } else if (ver == 'WRONG_ANSWER') {
+        verTable.push(['WA', verdicts[ver]]);
+        verSliceColors.push({ color: '#f44336' });
+      } else if (ver == 'TIME_LIMIT_EXCEEDED') {
+        verTable.push(['TLE', verdicts[ver]]);
+        verSliceColors.push({ color: '#2196F3' });
+      } else if (ver == 'MEMORY_LIMIT_EXCEEDED') {
+        verTable.push(['MLE', verdicts[ver]]);
+        verSliceColors.push({ color: '#673AB7' });
+      } else if (ver == 'RUNTIME_ERROR') {
+        verTable.push(['RTE', verdicts[ver]]);
+        verSliceColors.push({ color: '#FF5722' });
+      } else if (ver == 'COMPILATION_ERROR') {
+        verTable.push(['CPE', verdicts[ver]]);
+        verSliceColors.push({ color: '#607D8B' });
+      } else if (ver == 'SKIPPED') {
+        verTable.push(['SKIPPED', verdicts[ver]]);
+        verSliceColors.push({ color: '#EEEEEE' });
+      } else if (ver == 'CLALLENGED') {
+        verTable.push(['CLALLENGED', verdicts[ver]]);
+        verSliceColors.push({ color: '#E91E63' });
+      } else {
+        verTable.push([ver, verdicts[ver]]);
+        verSliceColors.push({});
+      }
+    }
+    verdicts = new google.visualization.arrayToDataTable(verTable);
+    var verOptions = {
+      height: document.getElementById('verdicts').width(),
+      title: 'Verdicts of ' + $(handle),
+      legend: 'none',
+      pieSliceText: 'label',
+      slices: verSliceColors,
+      fontName: 'Roboto',
+      titleTextStyle: titleTextStyle,
+      is3D: true
+    };
+    
+  }
+  

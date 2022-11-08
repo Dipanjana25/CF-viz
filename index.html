@@ -8,6 +8,11 @@
     <link rel="icon" href="icon1.jpg" type="image/x-icon" sizes="16x16">
     <link rel="stylesheet" href="main.css" type="text/css">
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!-- <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="js/single.js"></script> -->
 </head>
 <body>
     <nav>
@@ -41,7 +46,30 @@
     </div>
     <div class="search-box">
         <input type="text" id="data" size="30" placeholder="Search . . ."><br>
-        <button id="tap" onclick="userinfo()" ><i class="bx bx-search"></i></button>
+        <button id="tap" class="t" onclick="userinfo()" ><i class="bx bx-search"></i></button>
+    </div>
+    <br>
+    <div class="display-data-container" id="display-data-container">
+        <div class="display-data" id="username"></div>
+        <div class="display-data" id="mxrt"></div>
+        <div class="display-data" id="mxrk"></div>
+        <div class="display-data" id="crt"></div>
+        <div class="display-data" id="tc"></div>
+        <div class="display-data" id="Tried"></div>
+        <div class="display-data" id="Solved"></div>
+        <div class="display-data" id="Average-Attempts"></div>
+        <div class="display-data" id="Max-Attempts"></div>
+        <div class="display-data" id="Solved-with-one-submission"></div>
+        <div class="display-data" id="Max-AC"></div>
+    </div>
+    <!-- <div
+        id="myChart" style="width:100%; max-width:600px; height:500px;">
+    </div> -->
+    <div id="verdicts" class="pie">
+    </div>
+    <div id="langs" class="pie">
+    </div>
+    <div id="tags" class="pie">
     </div>
     <script src="index.js"></script>
 </body>
