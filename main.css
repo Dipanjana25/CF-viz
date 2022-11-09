@@ -9,13 +9,14 @@ nav{
     width: 100%;
     height: 75px;
     background-color: var(--navbg-color);
+    z-index:100;
 }
 nav .navbar{
     height: 100%;
     max-width: 1250px;
     margin:auto;
     display:flex;
-    
+    border-color:var(--bor-color);
     justify-content: space-between;
     /* padding: 0 50px; */
 }
@@ -25,6 +26,7 @@ nav .navbar .logo {
     font-weight: 600;
     text-decoration: none;
     padding: 30px 20px 20px 20px;
+    font-family:'Share Tech Mono', monospace;
 }
 nav .navbar .navlinks{
     height:100%;
@@ -46,6 +48,7 @@ nav .navbar .navlinks .links li {
     /* white-space: nowrap; */
     font-size: 25px;
     font-weight: 600;
+    font-family:'Share Tech Mono', monospace;
 }
 nav .navbar .navlinks .links li button {
     position:absolute;
@@ -85,6 +88,7 @@ nav .navbar .navlinks .links li button {
     flex-direction: row;
     justify-content: center;   
     margin-top: 100px;
+    box-shadow:none;
 }
 
 .search-box input[type="text"]{
@@ -92,9 +96,10 @@ nav .navbar .navlinks .links li button {
     padding: 10px 20px;
     margin-right: 0;
     border-radius: 30px 0px 0px 30px;
-    box-shadow: 0 2px 10px 0 var(--navbg-color);
+    /* box-shadow: 0 2px 10px 0 var(--navbg-color); */
     width: 40vw;
     font-size: 1rem; 
+    font-family:'Share Tech Mono', monospace;
 }
 
 .search-box input:focus {
@@ -108,7 +113,7 @@ nav .navbar .navlinks .links li button {
     padding-left: 20px;
     padding-right: 20px;
     border-radius: 0px 30px 30px 0px;
-    box-shadow:0 2px 10px 0 var(--navbg-color);
+    box-shadow:0 2px 5px 0 var(--navbg-color);
     color: var(--text-color);
     font-size: 20px;
     font-weight: 600;
@@ -119,6 +124,31 @@ nav .navbar .navlinks .links li button {
     display:none;
 }
 
+.display-data-container {    
+    display:none;
+   background-color: var(--background-color);
+   border-radius: 12px;
+   margin: 2rem;
+   border: 1px solid var(--borderdata-color);
+   padding: 12px;
+   /* box-shadow: 4px 3px 6px 1px rgba(69, 74, 80, 0.7); */
+}
+
+.display-data p{
+   padding: 5px 10px;
+   font-size: 1.3rem;
+   margin-bottom: 10px;
+   width: 400px;
+   display: flex;
+   align-items: center;
+   color:var(--bor-color);
+   font-family:'Share Tech Mono', monospace;
+}
+
+.display-data b {
+   margin-right: 10px;
+   /* color: var(--button-text); */
+}
 @media(max-width:800px){
     nav .navbar .navlinks{
         display: block;
@@ -136,7 +166,7 @@ nav .navbar .navlinks .links li button {
     nav .navbar .logo {
         display: block;
         font-size: 20px;
-        right:0;
+        justify-content: center;
         padding: 30px 20px 20px 20px;
     }
     nav .navbar .bx-menu{
@@ -164,7 +194,15 @@ nav .navbar .navlinks .links li button {
     nav .navbar .navlinks .links li{
         display: block;
         border-bottom: none;
-    }    
+    }
+    .display-data p{
+        font-size: 1rem;
+    }
+}
+@media(max-width:320px){
+    .display-data p{
+        font-size: 0.68rem;
+    }
 }
 .com{
     display: flex;
@@ -180,7 +218,7 @@ input[type="text"]{
     padding: 10px 20px ;
     margin-right: 0;
     /* border-radius: 30px 0px 0px 30px; */
-    box-shadow: 0 2px 10px 0 var(--navbg-color);
+    box-shadow: 0 2px 5px 0 var(--navbg-color);
     width: 20vw;
     font-size: 1rem; 
 }
@@ -210,34 +248,12 @@ input:focus {
     color: var(--text-color);
     font-size: 20px;
     font-weight: 600;
-}
-.display-data-container {    
-     display:none; 
-    background-color: var(--background-color);
-    border-radius: 12px;
-    margin: 2rem;
-    border: 1px solid var(--borderdata-color);
-    padding: 12px;
-    box-shadow: 4px 3px 6px 1px rgba(69, 74, 80, 0.7);
-}
-
-.display-data p{
-    padding: 5px 10px;
-    font-size: 1rem;
-    margin-bottom: 10px;
-    width: 400px;
-    display: flex;
-    align-items: center;
-    color:var(--text-color);
-}
-
-.display-data b {
-    margin-right: 10px;
-    color: var(--button-text);
+    font-family:'Share Tech Mono', monospace;
 }
 
 :root{
     --navbg-color:#e29578;
+    --bor-color:black;
     --nav-color:black;
     --search-color:black;
     --text-color:black;
@@ -248,9 +264,11 @@ input:focus {
     --background-color:beige;
     --borderdata-color:#e29578;
     --shadow-color:rgba(69, 74, 80, 0.7);
+    --shadow2-color:rgba(69, 74, 80, 0.7);
 }
 html[data-theme='light'] {
     --navbg-color:#e29578;
+    --bor-color:black;
     --nav-color:black;
     --search-color:black;
     --text-color:black;
@@ -261,9 +279,11 @@ html[data-theme='light'] {
     --background-color:beige;
     --borderdata-color:#e29578;
     --shadow-color:rgba(69, 74, 80, 0.7);
+    --shadow2-color:rgba(69, 74, 80, 0.7);
 }
 html[data-theme='dark'] {
     --navbg-color:#00b4d8;
+    --bor-color:white;
     --nav-color:beige;
     --search-color:#ffddd2;
     --text-color:lightcyan;
@@ -272,8 +292,9 @@ html[data-theme='dark'] {
     --border-color:rgb(252, 252, 252);
     --trans-color:beige;
     --background-color:black;
-    --borderdata-color:#00b4d8;
+    --borderdata-color:#0070f3;
     --shadow-color:white;
+    --shadow2-color:#0070f3;
 }
 [data-theme='light'] .d-block-light{
     display:block;
@@ -295,7 +316,49 @@ html[data-theme='dark'] {
     width:40px;
     border-radius: 50%;
 }
+.graph{
+    flex-wrap:wrap;
+    justify-content: space-around;
+    display: flex;
+}
+.card1,.card2,.card3{
+    width:250px;
+    display:none;
+    /* width:250px;  */
+    margin: 1rem;
+    padding: 1.5rem;
+    border: 1px solid var(--borderdata-color);
+    border-radius: 10px;
+    transition:  border-color 0.5s ease;
+    /* max-width:500px; */
+    /* width:100%;
+    height:100%; */
+    z-index:1;
+}
+.display-data-container:hover,
+.card1:hover,
+.card2:hover,
+.card3:hover,
+.card1:focus,
+.card2:focus,
+.card3:focus,
+.card1:active,
+.card2:active,
+.card3:active {
+  border-color: var(--border-color);
+  transform: scale(1.02);
+}
+  
 
+.tagcont{
+    display:flex;
+    justify-content: center;
+}
+/* .card:hover{
+    transform:translateX(20);
+    text-shadow:none;
+    color:black;
+} */
 /* .warn{
     display:flex;
 } */

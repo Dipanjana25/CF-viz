@@ -26,7 +26,7 @@
                     <i class="bx bx-x"></i>
                 </div>
                 <ul class="links">
-                    <li><i class='bx bxs-home-heart'></i><a href="#" style="text-decoration:none; color:var(--text-color);">Home</a></li>
+                    <li><i class='bx bxs-home'></i><a href="#" style="text-decoration:none; color:var(--text-color);">Home</a></li>
                     <li><i class='bx bx-git-compare'></i><a href="comp.html" style="text-decoration:none; color:var(--text-color);">Compare</a></li>
                     <li>
                         <button id="theme-toggle" onclick="toggle()" class="btn btn-link btn-sm ml-2 small" type="button">
@@ -40,7 +40,7 @@
     </nav>
     <div class="type">
         <h1>
-            <a class="typewrite" data-period="2000" data-type='[ "Welcome to Codeforces Visualizer . . . .", "Search for any valid codeforces User handle . . .","Analyze ! !"]'>
+            <a class="typewrite" style="font-family:'Share Tech Mono', monospace;" data-period="2000" data-type='[ "Welcome to Codeforces Visualizer . . . .", "Search for any valid codeforces User handle . . .","Analyze ! !"]'>
             <span class="wrap"></span>
             </a>
         </h1>
@@ -63,15 +63,21 @@
         <div class="display-data" id="Solved-with-one-submission"></div>
         <div class="display-data" id="Max-AC"></div>
     </div>
-    <div
-        id="myChart" style="width:100%; max-width:600px; height:300px;">
+    <br>
+    <div class="graph">
+            <div class="card1"
+                id="myChart" style="width:100%; max-width:500px; height:300px;">
+            </div>
+            <div class="card2"
+                id="mylangChart" style="width:100%; max-width:500px; height:300px;">
+            </div>
     </div>
-    <!-- <div id="verdicts" class="pie">
+    <br><br>
+    <div class="tagcont">
+        <div class="card3"
+                id="mytagChart" style="width:100%; max-width:500px; height:300px; ">
+        </div>
     </div>
-    <div id="langs" class="pie">
-    </div>
-    <div id="tags" class="pie">
-    </div> -->
     <script src="index.js"></script>
 </body>
 </html>

@@ -71,9 +71,15 @@ closeOpenBtn.addEventListener("click",()=>{
 //showdata
 let tapsearch=document.querySelector(".search-box .t");
 let databox=document.querySelector(".display-data-container");
+let car1=document.querySelector(".card1");
+let car2=document.querySelector(".card2");
+let car3=document.querySelector(".card3");
  
 tapsearch.addEventListener("click",()=>{
     databox.style.display="block";
+    car1.style.display="block";
+    car2.style.display="block"
+    car3.style.display="block";;
 });
 
 //darkmode
@@ -112,7 +118,10 @@ document.getElementById("data").addEventListener("keyup", function (event) {
     }
   });
 
-  var ac=0,wa=0,re=0,tle=0,f=0,ce=0,p=0,mle=0,sk=0,ile=0;
+var ac=0,wa=0,re=0,tle=0,f=0,ce=0,p=0,mle=0,sk=0,ile=0;
+var map={};
+var tg={};
+var maptg={};
 function userinfo() {
     //const showw = document.querySelector(".t");
     let username = document.getElementById("data").value; 
@@ -131,8 +140,8 @@ function userinfo() {
           const response2= await fetch(url2);
           const data = await response.json();
           const data2 = await response2.json();  
-          console.log(data);
-          console.log(data2);
+          // console.log(data);
+          // console.log(data2);
           totcont=data2.result.length;
           url3="https://codeforces.com/api/user.status?handle="+username;
           const response3=await fetch(url3);
@@ -146,7 +155,6 @@ function userinfo() {
           cuurat=data.result[0].rating;
           const triedq = new Set();
           const solvedq = new Set();
-          const map={};
           for(var i=0;i<data3.result.length;i++){
             const a=data3.result[i].problem.name;
             const b=data3.result[i].verdict;
@@ -178,7 +186,21 @@ function userinfo() {
             else if(b==="IDLENESS_LIMIT_EXCEEDED")
             ile++;
           }
-          console.log(map);
+          for(var i=0;i<data3.result.length;i++){
+            tg=data3.result[i].problem.tags;
+            console.log(tg);
+            for(var j in tg){
+              var nm=tg[j];
+              if(maptg[nm])
+              maptg[nm]++;
+              else
+              maptg[nm]=1;
+              console.log(nm);
+              console.log(maptg[nm]);
+            }
+            
+          }
+          // console.log(map);
           if(fname===undefined || sname ===undefined){
           usrnm = `<p> <b>Handle :</b> ${handle}</p>`;}
           else{
@@ -241,38 +263,47 @@ function userinfo() {
             var options = {
               title:'Verdicts of '+handle,
               is3D:true,
-              colors: ['#4CAF50', '#f44336', '#FF5722', '#607D8B', '#2196F3']
+              colors: ['#4CAF50', '#f44336', '#FF5722', '#607D8B', '#2196F3'] 
             };
           
           var chart = new google.visualization.PieChart(document.getElementById('myChart'));
             chart.draw(data, options);
           } 
           drawChart();
-          // google.charts.load('current', {'packages':['corechart']});
-          // google.charts.setOnLoadCallback(drawlangChart);
-          // async function drawlangChart() {
-          //     //console.log(ac);
-          //     var data = google.visualization.arrayToDataTable([
-          //       ['Language', 'Percentage'],
-          //       for (const x of map.entries()) {
-                
-          //         [x.key,x.value],
-          //       }
-          //       ]);
-          //   // var data = google.visualization.arrayToDataTable([
-          //   //   ['Language', 'Percentage'],
-          //   //   ['GNU C++17',45]
-          //   // ]);
-            
-          //   var noptions = {
-          //     title:'Languages used by '+handle,
-          //     is3D:true
-          //   };
+          google.charts.setOnLoadCallback(drawlangChart);
+          async function drawlangChart() {
+              var langTable = [['Language', 'Count']];
+              for(var lang in map){
+                langTable.push([lang,map[lang]]);
+              }
+              //console.log(langTable);
+              data = new google.visualization.arrayToDataTable(langTable);
+            var options = {
+              title:'Languages used by '+handle,
+              is3D:true
+            };
           
-          // var nchart = new google.visualization.PieChart(document.getElementById('mylangChart'));
-          //   nchart.draw(data, noptions);
-          // }
-          // drawlangChart(); 
+          var chart = new google.visualization.PieChart(document.getElementById('mylangChart'));
+            chart.draw(data, options);
+          }
+          drawlangChart(); 
+          google.charts.setOnLoadCallback(drawtagChart);
+          async function drawtagChart() {
+              var tagTable = [['Tag', 'Count']];
+              for(var ta in maptg){
+                tagTable.push([ta,maptg[ta]]);
+              }
+              // console.log(maptg);
+              data = new google.visualization.arrayToDataTable(tagTable);
+              var options = {
+              title:'Tags',
+              is3D:true
+            };
+          
+          var chart = new google.visualization.PieChart(document.getElementById('mytagChart'));
+            chart.draw(data, options);
+          }
+          drawtagChart(); 
         }
         get_data();
   }
