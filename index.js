@@ -99,13 +99,7 @@ tog.onclick=function toggle(){
     document.documentElement.setAttribute('data-theme', targetTheme)
     localStorage.setItem('theme', targetTheme);
 };
-// const url="https://codeforces.com/api/user.rating?handle=asr_003";
-// fetch(url).then((response)=>{
-//     return response.json();
-// }).then((data)=>{
-//     console.log(data);
-// }
-// );
+
 document.getElementById("data").addEventListener("keyup", function (event) {
     event.preventDefault();
     let input = document.getElementById("data");
@@ -118,10 +112,12 @@ document.getElementById("data").addEventListener("keyup", function (event) {
     }
   });
 
-var ac=0,wa=0,re=0,tle=0,f=0,ce=0,p=0,mle=0,sk=0,ile=0;
+var ac=0,wa=0,re=0,tle=0,f=0,ce=0,p=0,mle=0,sk=0,ile=0,rat=0,ind=0;
 var map={};
 var tg={};
 var maptg={};
+var maprat={};
+var mapind={};
 function userinfo() {
     //const showw = document.querySelector(".t");
     let username = document.getElementById("data").value; 
@@ -140,8 +136,6 @@ function userinfo() {
           const response2= await fetch(url2);
           const data = await response.json();
           const data2 = await response2.json();  
-          // console.log(data);
-          // console.log(data2);
           totcont=data2.result.length;
           url3="https://codeforces.com/api/user.status?handle="+username;
           const response3=await fetch(url3);
@@ -188,19 +182,26 @@ function userinfo() {
           }
           for(var i=0;i<data3.result.length;i++){
             tg=data3.result[i].problem.tags;
-            console.log(tg);
+            rat=data3.result[i].problem.rating;
+            ind=data3.result[i].problem.index;
+            if(maprat[rat])
+            maprat[rat]++;
+            else
+            maprat[rat]=1;
+            if(mapind[ind])
+            mapind[ind]++;
+            else
+            mapind[ind]=1;
             for(var j in tg){
               var nm=tg[j];
               if(maptg[nm])
               maptg[nm]++;
               else
               maptg[nm]=1;
-              console.log(nm);
-              console.log(maptg[nm]);
             }
             
           }
-          // console.log(map);
+          //console.log(maprat);
           if(fname===undefined || sname ===undefined){
           usrnm = `<p> <b>Handle :</b> ${handle}</p>`;}
           else{
@@ -293,7 +294,6 @@ function userinfo() {
               for(var ta in maptg){
                 tagTable.push([ta,maptg[ta]]);
               }
-              // console.log(maptg);
               data = new google.visualization.arrayToDataTable(tagTable);
               var options = {
               title:'Tags',
@@ -304,6 +304,59 @@ function userinfo() {
             chart.draw(data, options);
           }
           drawtagChart(); 
+          var xValues=[];
+          var yValues=[];
+          var barColors=[];
+          for(var i in maprat){
+            xValues.push(i);
+            yValues.push(maprat[i]);
+            barColors.push("blue");
+          }
+          console.log(xValues);
+          console.log(yValues);
+          new Chart("barChart", {
+            type: "bar",
+            data: {
+              labels: xValues,
+              datasets: [{
+                backgroundColor: barColors,
+                data: yValues
+              }]
+            },
+            options: {
+              legend: {display: false},
+              title: {
+                display: true,
+                text: "Problem Ratings of "+handle
+              }
+            }
+          });
+          var xValues1=[];
+          var yValues1=[];
+          var barColors1=[];
+          for(var i in mapind){
+            xValues1.push(i);
+            yValues1.push(mapind[i]);
+            barColors1.push("blue");
+          }
+          //mapind.sort();
+          new Chart("barChart1", {
+            type: "bar",
+            data: {
+              labels: xValues1,
+              datasets: [{
+                backgroundColor: barColors1,
+                data: yValues1
+              }]
+            },
+            options: {
+              legend: {display: false},
+              title: {
+                display: true,
+                text: "Problem Indices of "+handle
+              }
+            }
+          });
         }
         get_data();
   }
