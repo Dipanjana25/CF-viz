@@ -111,8 +111,10 @@ document.getElementById("data").addEventListener("keyup", function (event) {
       }
     }
   });
+
+  var ac=0,wa=0,re=0,tle=0,f=0,ce=0,p=0,mle=0,sk=0,ile=0;
 function userinfo() {
-    const showw = document.querySelector(".t");
+    //const showw = document.querySelector(".t");
     let username = document.getElementById("data").value; 
     url1= "https://codeforces.com/api/user.info?handles="+username;
     url2="https://codeforces.com/api/user.rating?handle="+username;
@@ -144,34 +146,39 @@ function userinfo() {
           cuurat=data.result[0].rating;
           const triedq = new Set();
           const solvedq = new Set();
-          var ac=0,wa=0,re=0,tle=0,f=0,p=0,ce=0,pe=0,mle=0,ile=0;
+          const map={};
           for(var i=0;i<data3.result.length;i++){
             const a=data3.result[i].problem.name;
             const b=data3.result[i].verdict;
+            const c=data3.result[i].programmingLanguage;
             triedq.add(a);
+            if(map[c])
+            map[c]++;
+            else
+            map[c]=1;
             if(b==="OK"){
             solvedq.add(a);
             ac++;}
-            // else if(b==="WRONG_ANSWER")
-            // wa++;
-            // else if(b==="RUNTIME_ERROR")
-            // re++;
-            // else if(b==="TIME_LIMIT_EXCEEDED")
-            // tle++;
-            // else if(b==="FAILED")
-            // f++;
-            // else if(b==="PARTIAL")
-            // p++;
-            // else if(b==="COMPILATION_ERROR")
-            // ce++;
-            // else if(b==="PRESENTATION_ERROR")
-            // pe++;
-            // else if(b==="MEMORY_LIMIT_EXCEEDED")
-            // mle++;
-            // else if(b==="IDLENESS_LIMIT_EXCEEDED")
-            // ile++;
+            else if(b==="WRONG_ANSWER")
+            wa++;
+            else if(b==="RUNTIME_ERROR")
+            re++;
+            else if(b==="TIME_LIMIT_EXCEEDED")
+            tle++;
+            else if(b==="FAILED")
+            f++;
+            else if(b==="PARTIAL")
+            p++;
+            else if(b==="COMPILATION_ERROR")
+            ce++;
+            else if(b==="MEMORY_LIMIT_EXCEEDED")
+            mle++;
+            else if(b==="SKIPPED")
+            sk++;
+            else if(b==="IDLENESS_LIMIT_EXCEEDED")
+            ile++;
           }
-          //console.log(ac);
+          console.log(map);
           if(fname===undefined || sname ===undefined){
           usrnm = `<p> <b>Handle :</b> ${handle}</p>`;}
           else{
@@ -214,58 +221,59 @@ function userinfo() {
 //              document.body.style =
 //               "background-image:repeating-linear-gradient(#edebeb , #fffcfc)";
          }
+          google.charts.load('current', {'packages':['corechart']});
+          google.charts.setOnLoadCallback(drawChart);
+          async function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+              ['Verdicts', 'Number'],
+              ['AC',ac],
+              ['WA',wa],
+              ['RE',re],
+              ['CE',ce],
+              ['TLE',tle],
+              ['FAILED',f],
+              ['PARTIAL',p],
+              ['MLE',mle],
+              ['SKIPPED',sk],
+              ['ILE',ile]
+            ]);
+            
+            var options = {
+              title:'Verdicts of '+handle,
+              is3D:true,
+              colors: ['#4CAF50', '#f44336', '#FF5722', '#607D8B', '#2196F3']
+            };
+          
+          var chart = new google.visualization.PieChart(document.getElementById('myChart'));
+            chart.draw(data, options);
+          } 
+          drawChart();
+          // google.charts.load('current', {'packages':['corechart']});
+          // google.charts.setOnLoadCallback(drawlangChart);
+          // async function drawlangChart() {
+          //     //console.log(ac);
+          //     var data = google.visualization.arrayToDataTable([
+          //       ['Language', 'Percentage'],
+          //       for (const x of map.entries()) {
+                
+          //         [x.key,x.value],
+          //       }
+          //       ]);
+          //   // var data = google.visualization.arrayToDataTable([
+          //   //   ['Language', 'Percentage'],
+          //   //   ['GNU C++17',45]
+          //   // ]);
+            
+          //   var noptions = {
+          //     title:'Languages used by '+handle,
+          //     is3D:true
+          //   };
+          
+          // var nchart = new google.visualization.PieChart(document.getElementById('mylangChart'));
+          //   nchart.draw(data, noptions);
+          // }
+          // drawlangChart(); 
         }
         get_data();
-      }
   }
-function drawCharts() {
-    //Plotting the verdicts chart
-    var verdicts={};
-    //document.getElementById("verdicts").removeClass('hidden');
-    var verTable = [['Verdict', 'Count']];
-    var verSliceColors = [];
-
-    for (var ver in verdicts) {
-      if (ver == 'OK') {
-        verTable.push(['AC', verdicts[ver]]);
-        verSliceColors.push({ color: '#4CAF50' });
-      } else if (ver == 'WRONG_ANSWER') {
-        verTable.push(['WA', verdicts[ver]]);
-        verSliceColors.push({ color: '#f44336' });
-      } else if (ver == 'TIME_LIMIT_EXCEEDED') {
-        verTable.push(['TLE', verdicts[ver]]);
-        verSliceColors.push({ color: '#2196F3' });
-      } else if (ver == 'MEMORY_LIMIT_EXCEEDED') {
-        verTable.push(['MLE', verdicts[ver]]);
-        verSliceColors.push({ color: '#673AB7' });
-      } else if (ver == 'RUNTIME_ERROR') {
-        verTable.push(['RTE', verdicts[ver]]);
-        verSliceColors.push({ color: '#FF5722' });
-      } else if (ver == 'COMPILATION_ERROR') {
-        verTable.push(['CPE', verdicts[ver]]);
-        verSliceColors.push({ color: '#607D8B' });
-      } else if (ver == 'SKIPPED') {
-        verTable.push(['SKIPPED', verdicts[ver]]);
-        verSliceColors.push({ color: '#EEEEEE' });
-      } else if (ver == 'CLALLENGED') {
-        verTable.push(['CLALLENGED', verdicts[ver]]);
-        verSliceColors.push({ color: '#E91E63' });
-      } else {
-        verTable.push([ver, verdicts[ver]]);
-        verSliceColors.push({});
-      }
-    }
-    verdicts = new google.visualization.arrayToDataTable(verTable);
-    var verOptions = {
-      height: document.getElementById('verdicts').width(),
-      title: 'Verdicts of ' + $(handle),
-      legend: 'none',
-      pieSliceText: 'label',
-      slices: verSliceColors,
-      fontName: 'Roboto',
-      titleTextStyle: titleTextStyle,
-      is3D: true
-    };
-    
-  }
-  
+}
