@@ -321,7 +321,7 @@ html[data-theme='dark'] {
     justify-content: space-around;
     display: flex;
 }
-.card1,.card2,.card3,.card4,.card5,.card6{
+.card1,.card2,.card3,.card4,.card5,.card6,.card7,.card8{
     width:500px;
     display:none;
     /* width:250px;  */
@@ -353,7 +353,13 @@ html[data-theme='dark'] {
 .card5:active,
 .card6:hover,
 .card6:focus,
-.card6:active{
+.card6:active,
+.card7:hover,
+.card7:focus,
+.card7:active,
+.card8:hover,
+.card8:focus,
+.card8:active{
   border-color: var(--border-color);
   transform: scale(1.02);
 }

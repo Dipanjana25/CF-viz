@@ -59,11 +59,15 @@ let tapsearch=document.querySelector(".cute .compac");
 let car4=document.querySelector(".card4");
 let car5=document.querySelector(".card5");
 let car6=document.querySelector(".card6");
+let car7=document.querySelector(".card7");
+let car8=document.querySelector(".card8");
  
 tapsearch.addEventListener("click",()=>{
     car4.style.display="block"
     car5.style.display="block";
     car6.style.display="block";
+    car7.style.display="block";
+    car8.style.display="block";
 });
 //burger menu
 let menuOpenBtn=document.querySelector(".navbar .bx-menu");
@@ -110,7 +114,11 @@ document.getElementById("data2").addEventListener("keyup", function (event) {
 
 
 
-var maxrat1=0,maxrat2=0,currat1=0,currat2=0,cont1=0,cont2=0,maxup1=0,maxup2=0,maxdown1=0,maxdown2=0;
+var maxrat1=0,maxrat2=0,currat1=0,currat2=0,cont1=0,cont2=0,maxup1=0,maxup2=0,maxdown1=0,maxdown2=0,rat1=0,rat2=0;
+const triedqa = new Set();
+const solvedqa = new Set();
+const triedqb = new Set();
+const solvedqb = new Set();
 var tg={};
 var maptg={};
 var maprat={};
@@ -136,7 +144,12 @@ function compareinfo() {
            const data = await response1.json();
            const data2a=await response2a.json();
            const data2b=await response2b.json();
-           console.log(data2a,data2b);
+           url3a="https://codeforces.com/api/user.status?handle="+username1;
+           url3b="https://codeforces.com/api/user.status?handle="+username2;
+           const response3a=await fetch(url3a);
+           const data3a = await response3a.json(); 
+           const response3b=await fetch(url3b);
+           const data3b = await response3b.json(); 
            cont1=data2a.result.length;
            cont2=data2b.result.length;
            maxrat1=data.result[0].maxRating;
@@ -145,20 +158,33 @@ function compareinfo() {
            currat2=data.result[1].rating;
            var minrat1=data2a.result[0].newRating;
            var minrat2=data2b.result[0].newRating;
-        //    console.log(maxrat1,maxrat2,currat1,currat2,cont1,cont2);
-           for(var i=0;i<data2a.result.length;i++){
+          for(var i=0;i<data2a.result.length;i++){
             minrat1=Math.min(minrat1,data2a.result[i].newRating);
             if(data2a.result[i].newRating>=data2a.result[i].oldRating)
             maxup1=Math.max(maxup1,(data2a.result[i].newRating-data2a.result[i].oldRating));
             else
             maxdown1=Math.min(maxdown1,(data2a.result[i].newRating-data2a.result[i].oldRating));
-           }
-           for(var i=0;i<data2b.result.length;i++){
+          }
+          for(var i=0;i<data3a.result.length;i++){
+            const a=data3a.result[i].problem.name;
+            triedqa.add(a);
+            const b=data3a.result[i].verdict;
+            if(b==="OK")
+            solvedqa.add(a);
+          }
+          for(var i=0;i<data2b.result.length;i++){
             minrat2=Math.min(minrat2,data2b.result[i].newRating);
             if(data2b.result[i].newRating>=data2b.result[i].oldRating)
             maxup2=Math.max(maxup2,(data2b.result[i].newRating-data2b.result[i].oldRating));
             else
             maxdown2=Math.min(maxdown2,(data2b.result[i].newRating-data2b.result[i].oldRating));
+          }
+          for(var i=0;i<data3b.result.length;i++){
+            const a=data3b.result[i].problem.name;
+            triedqb.add(a);
+            const b=data3b.result[i].verdict;
+            if(b==="OK")
+            solvedqb.add(a);
            }
           //  console.log(minrat1,minrat2,maxup1,maxup2,maxdown1,maxdown2);
            google.charts.load('current', {'packages':['corechart']});
@@ -221,7 +247,46 @@ function compareinfo() {
               );
               ratingChart.draw(contestss, Options);
            }
-           drawcomcharts2();         
+           drawcomcharts2();  
+           google.charts.setOnLoadCallback(drawcomcharts3);
+           async function drawcomcharts3(){
+            var trisol = new google.visualization.arrayToDataTable([
+                ['Handle', username1, username2],
+                ['Tried', triedqa.size,triedqb.size],
+                ['Solved',solvedqa.size,solvedqb.size]
+              ]);
+              var Options = {
+                title:"Tried and Solved",
+                colors: colors,
+                vAxis: {
+                  minValue: 0
+                }
+            };
+              var ratingChart = new google.visualization.ColumnChart(
+                document.getElementById('chartContainer3')
+              );
+              ratingChart.draw(trisol, Options);
+           }
+           drawcomcharts3();  
+           google.charts.setOnLoadCallback(drawcomcharts4);
+           async function drawcomcharts4(){
+            var trisol = new google.visualization.arrayToDataTable([
+                ['Handle', username1, username2],
+                ['Unsolved', triedqa.size-solvedqa.size, triedqb.size-solvedqb.size]
+              ]);
+              var Options = {
+                title:"UnSolved",
+                colors: colors,
+                vAxis: {
+                  minValue: 0
+                }
+            };
+              var ratingChart = new google.visualization.ColumnChart(
+                document.getElementById('chartContainer4')
+              );
+              ratingChart.draw(trisol, Options);
+           }
+           drawcomcharts4();         
           }
           catch (err) {
                  document.getElementById("warning").innerHTML = `<p class="warn" style="color: red; font-weight: bolder; display:flex; justify-content: center;">Please enter a valid user handle</b></p>`;
