@@ -325,6 +325,10 @@ function userinfo() {
             },
             options: {
               legend: {display: false},
+              animationEnabled:true,
+              animation: {
+                duration: 6000,
+              },
               title: {
                 display: true,
                 text: "Problem Ratings of "+handle
@@ -351,6 +355,10 @@ function userinfo() {
             },
             options: {
               legend: {display: false},
+              animationEnabled:true,
+              animation: {
+                duration: 6000,
+              },
               title: {
                 display: true,
                 text: "Problem Indices of "+handle

@@ -11,6 +11,7 @@
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <!-- <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script> -->
     <!-- <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -66,15 +67,28 @@
     </div>
     <div class="com">
         <div class="search-box1">
-            <input type="text" size="30" placeholder="Search . . ."><br>
+            <input type="text" id="data1" size="30" placeholder="Search . . ."><br>
         </div>
         <div class="search-box2">
-            <input type="text"  size="30" placeholder="Search . . ."><br>
+            <input type="text" id="data2" size="30" placeholder="Search . . ."><br>
         </div>
     </div>
     <div class="cute">
-        <button id="compa" onclick="compareinfo()">Compare</button>
+        <button id="compa" class="compac" onclick="compareinfo()">Compare</button>
     </div>
-    <script src="index.js"></script>
+    <br><br>
+    <div id="warning"></div>
+    <div class="together">
+        <div id="chartContainer" class="card4" style="height: 300px; width: 100%; max-width:500px;"></div>
+        <div id="chartContainer1" class="card5" style="height: 300px; width: 100%; max-width:500px;"></div>
+    </div>
+    <div class="alone">
+        <div id="chartContainer2" class="card6" style="height: 300px; width: 100%; max-width:500px;"></div>
+    </div>
+    <div class="bandw" id="bandw">
+
+    </div>
+    <script src="comp.js"></script>
+    <!-- <script src="index.js"></script> -->
 </body>
 </html>

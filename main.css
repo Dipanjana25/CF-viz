@@ -316,12 +316,12 @@ html[data-theme='dark'] {
     width:40px;
     border-radius: 50%;
 }
-.graph{
+.graph,.together{
     flex-wrap:wrap;
     justify-content: space-around;
     display: flex;
 }
-.card1,.card2,.card3{
+.card1,.card2,.card3,.card4,.card5,.card6{
     width:500px;
     display:none;
     /* width:250px;  */
@@ -344,17 +344,22 @@ html[data-theme='dark'] {
 .card3:focus,
 .card1:active,
 .card2:active,
-.card3:active {
+.card3:active,
+.card4:hover,
+.card4:focus,
+.card4:active,
+.card5:hover,
+.card5:focus,
+.card5:active,
+.card6:hover,
+.card6:focus,
+.card6:active{
   border-color: var(--border-color);
   transform: scale(1.02);
 }
   
 
-.tagcont{
-    display:flex;
-    justify-content: center;
-}
-.barcont,.barcont1{
+.tagcont,.alone,.barcont,.barcont1{
     display:flex;
     justify-content: center;
 }
